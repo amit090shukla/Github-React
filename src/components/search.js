@@ -1,22 +1,32 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import Input from "@material-ui/core/Input";
-import SearchIcon from "@material-ui/icons/Search";
 
-const search = (e) => {
+class Search extends React.Component {
+
+  state = {
+    query: ''
+  }
+
+  queryChange = (e) => {
+    this.setState({query: e.target.value});
+  }
+
+  onSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
+    this.props.onSubmit(this.state.query);
+  }
+
+  render() {
+    return (
+      <Paper style={styleObj.container}>
+        <form>
+          <input value = {this.state.query} placeholder = 'Type here' onChange = { e => this.queryChange(e)}/>
+          <input type="submit" value="Search Profile" onClick = {this.onSubmit}/>
+        </form>
+      </Paper>
+    );
+  }
 }
-const Search = props => {
-  return (
-    <Paper style={styleObj.container}>
-    <form onSubmit = {search}>
-      <input/>
-        <input type = 'submit' value = 'Search Profile' ></input>
-      </form>
-    </Paper>
-  );
-};
 
 const styleObj = {
   container: {
